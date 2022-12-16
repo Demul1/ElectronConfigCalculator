@@ -1,17 +1,29 @@
+function genElement()
+{
+	while(true)
+    {
+        period = table[Math.floor(Math.random()*(table.length-1))]; //random period from table
+        element = period[Math.floor(Math.random()*(period.length-1))]; //random element from period
+        if(element!="") //make sure it's not missing
+        {
+            return([period, element]);
+        }
+    }
+}
 function findConfig(_element, _period)
 {
     if(_element=="He") //helium exception
     {
-	    return("1s^2");
+        return("1s^2");
     }
     let config = "";
-	let periodIndex = table.indexOf(_period)+1;
+    let periodIndex = table.indexOf(_period)+1;
     let nobleGas = table[periodIndex-2][_period.length-1];
     config+="["+nobleGas+"] ";
     let group = _period.indexOf(_element)+1;
-  
-	if(group==6 || group==11) //d4 and d9 rule
-    { 
+    
+    if(group==6 || group==11) //d4 and d9 rule
+    {
         let sElectrons = 1;
         config+=periodIndex+"s^"+sElectrons;
         if(group>3 && periodIndex>5)
@@ -20,7 +32,7 @@ function findConfig(_element, _period)
         }
         let dElectrons = group-1;
         config+=" "+(parseInt(periodIndex)-1).toString()+"d^"+dElectrons;
-	}
+        }
     else //not an exception
     {
         let sElectrons = group > 2 ? 2: group;
@@ -43,21 +55,19 @@ function findConfig(_element, _period)
     return(config);
 }
 
-
 //check answer
 function checkAnswer(_userAnswer, _correctAnswer)
 {
 	if(_userAnswer.split(' ').join('')==_correctAnswer.split(' ').join('')) //disregard spaces
 	{
-		console.log("Good job! That's correct! The electron configuration of "+element+" is "+_correctAnswer);
-  	    questionsCorrect+=1;
+  	questionsCorrect+=1;
+		confirm("Good job! That's correct! The electron configuration of "+element+" is "+_correctAnswer+". You have got "+questionsCorrect+" questions correct and "+questionsIncorrect+" wrong.");
 	}
 	else
 	{
-		console.log("Sorry, that's incorrect! The electron configuration of "+element+" is "+_correctAnswer);
-  	    uestionsIncorrect+=1;
+  	questionsIncorrect+=1;
+		confirm("Sorry, that's incorrect! The electron configuration of "+element+" is "+_correctAnswer+". You have got "+questionsCorrect+" questions correct and "+questionsIncorrect+" wrong.");
 	}
-	console.log("You have got "+questionsCorrect+" questions correct and "+questionsIncorrect+" wrong.");
 }
 
 //periodic table
@@ -79,22 +89,30 @@ var period;
 var questionsCorrect = 0;
 var questionsIncorrect = 0;
 
-
 while(true)
 {
-    period = table[Math.floor(Math.random()*(table.length-1))]; //random period from table
-    element = period[Math.floor(Math.random()*(period.length-1))]; //random element from period
-    if(element!="") //make sure it's not missing
+    let elementData = genElement();
+    period = elementData[0];
+    element = elementData[1];
+
+    var userAnswer = prompt("What is the shorthand electron configuration of "+element+"?");
+    var correctAnswer = findConfig(element, period);
+    if(userAnswer!=null && userAnswer!="")
     {
+        checkAnswer(userAnswer, correctAnswer);
+    }
+    else
+    {
+        confirm("Please enter an answer.");
+    }
+    let playOption = confirm("Keep practicing?");
+    if(playOption==true)
+    {
+        continue;
+    }
+    else
+    {
+        console.log("Run the program again if you want to restart.");
         break;
     }
 }
-
-
-var userAnswer = prompt("What is the shorthand electron configuration of "+element+"?");
-var correctAnswer = findConfig(element, period);
-if(userAnswer!=null && userAnswer!="")
-{
-  checkAnswer(userAnswer, correctAnswer);
-}
-

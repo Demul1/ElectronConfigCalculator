@@ -1,6 +1,6 @@
 function genElement()
 {
-	while(true)
+    while(true)
     {
         period = table[Math.floor(Math.random()*(table.length-1))]; //random period from table
         element = period[Math.floor(Math.random()*(period.length-1))]; //random element from period
@@ -58,16 +58,16 @@ function findConfig(_element, _period)
 //check answer
 function checkAnswer(_userAnswer, _correctAnswer)
 {
-	if(_userAnswer.split(' ').join('')==_correctAnswer.split(' ').join('')) //disregard spaces
-	{
-  	questionsCorrect+=1;
-		confirm("Good job! That's correct! The electron configuration of "+element+" is "+_correctAnswer+". You have got "+questionsCorrect+" questions correct and "+questionsIncorrect+" wrong.");
-	}
-	else
-	{
-  	questionsIncorrect+=1;
-		confirm("Sorry, that's incorrect! The electron configuration of "+element+" is "+_correctAnswer+". You have got "+questionsCorrect+" questions correct and "+questionsIncorrect+" wrong.");
-	}
+   if(_userAnswer.split(' ').join('')==_correctAnswer.split(' ').join('')) //disregard spaces
+   {
+	questionsCorrect+=1;
+	confirm("Good job! That's correct! The electron configuration of "+element+" is "+_correctAnswer+". You have got "+questionsCorrect+" questions correct and "+questionsIncorrect+" wrong.");
+   }
+   else
+   {
+	questionsIncorrect+=1;
+	confirm("Sorry, that's incorrect! The electron configuration of "+element+" is "+_correctAnswer+". You have got "+questionsCorrect+" questions correct and "+questionsIncorrect+" wrong.");
+   }
 }
 
 //periodic table
